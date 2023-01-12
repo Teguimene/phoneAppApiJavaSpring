@@ -15,5 +15,7 @@ public class CompteStructure {
     @Column(length = 50)
     private String NomStructure;
 
-    private Long idResponsable;
+    @OneToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "responsaable_id")
+    private ResponsableCoin responsableCoin;
 }
