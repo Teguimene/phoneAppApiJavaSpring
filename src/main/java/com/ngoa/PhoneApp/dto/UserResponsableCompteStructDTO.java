@@ -10,6 +10,8 @@ public class UserResponsableCompteStructDTO {
     /* user */
     private int NumeroCniUser;
 
+    private  String responsable;
+
     /* reponsable */
     private String poste;
 }

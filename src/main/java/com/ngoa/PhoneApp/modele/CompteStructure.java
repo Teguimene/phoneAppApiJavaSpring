@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="COMPTE_STRUCTURE")
+@Table(name="compte_structure")
 @Data
 @NoArgsConstructor
 public class CompteStructure {
@@ -16,6 +16,6 @@ public class CompteStructure {
     private String NomStructure;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "responsaable_id")
+    @JoinColumn(name = "responsable_id")
     private ResponsableCoin responsableCoin;
 }

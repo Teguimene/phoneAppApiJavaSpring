@@ -12,6 +12,7 @@ public class ResponsableCoin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String codeUser;
     private String poste;

@@ -40,6 +40,7 @@ public class CompteStructureService {
         UserResponsableCompteStructDTO userResponsableCompteStructDTO = new UserResponsableCompteStructDTO();
         userResponsableCompteStructDTO.setCompteStructId(compteStructure.getId());
         userResponsableCompteStructDTO.setNumeroCniUser(compteStructure.getResponsableCoin().getUser().getNumeroCNI());
+        userResponsableCompteStructDTO.setResponsable(compteStructure.getResponsableCoin().getUser().getUsername());
         userResponsableCompteStructDTO.setPoste(compteStructure.getResponsableCoin().getPoste());
 
         return  userResponsableCompteStructDTO;
