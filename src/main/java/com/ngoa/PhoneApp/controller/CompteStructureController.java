@@ -1,10 +1,11 @@
 package com.ngoa.PhoneApp.controller;
 
 import com.ngoa.PhoneApp.dto.UserResponsableCompteStructDTO;
-import com.ngoa.PhoneApp.modele.CompteStructure;
-import com.ngoa.PhoneApp.modele.Produit;
-import com.ngoa.PhoneApp.modele.User;
+import com.ngoa.PhoneApp.modele.*;
+import com.ngoa.PhoneApp.repository.ResponsableCoinRepository;
+import com.ngoa.PhoneApp.repository.UserRepository;
 import com.ngoa.PhoneApp.service.CompteStructureService;
+import com.ngoa.PhoneApp.service.ResponsableCoinService;
 import com.ngoa.PhoneApp.service.UserService;
 import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,12 @@ import java.util.List;
 public class CompteStructureController {
     @Autowired
     private CompteStructureService compteStructureService;
-    private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ResponsableCoinRepository responsableCoinRepository;
     @GetMapping("/user-responsable-compteStruct")
     public List<UserResponsableCompteStructDTO> getAllUserResponsableCompteStructDTO() {
         return compteStructureService.getAllUserResponsableCompteStructDTO();
@@ -39,11 +44,25 @@ public class CompteStructureController {
 
     @PostMapping("/compteStructures")
     @ResponseBody
-    public ResponseEntity<CompteStructure> create(@RequestBody CompteStructure compteStructure) {
+    public ResponseEntity<CompteStructure> create(@RequestBody UserResCompteStruc userResCompteStruc) {
 
-//        System.out.println(compteStructure.getNomStructure());
+        System.out.println(userResCompteStruc.getUsername());
+        User user = new User();
+        user.setNumeroCNI(userResCompteStruc.getNumeroCNI());
+        user.setUsername(userResCompteStruc.getUsername());
+        user.setCodePin(userResCompteStruc.getCodePin());
+        userRepository.save(user);
+
+        ResponsableCoin responsableCoin = new ResponsableCoin();
+        responsableCoin.setUser(user);
+        responsableCoin.setPoste(userResCompteStruc.getPoste());
+        responsableCoin.setCodeUser(userResCompteStruc.getCodeUser());
+        responsableCoinRepository.save(responsableCoin);
+
+        CompteStructure compteStructure = new CompteStructure();
+        compteStructure.setNomStructure(userResCompteStruc.getNomStructure());
+        compteStructure.setResponsableCoin(responsableCoin);
         CompteStructure compteStructures = compteStructureService.saveCompteStructure(compteStructure);
-        Long id = compteStructures.getId();
 
         return ResponseEntity.ok().body(compteStructures);
     }

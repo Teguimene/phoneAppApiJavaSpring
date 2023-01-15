@@ -12,39 +12,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PhoneAppApplication implements CommandLineRunner {
+public class PhoneAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PhoneAppApplication.class, args);
-	}
-
-	@Autowired
-	private CompteStructureRepository compteStructureRepository;
-
-	@Autowired
-	private UserRepository userRepository;
-
-	@Autowired
-	private ResponsableCoinRepository responsableCoinRepository;
-	@Override
-	public void run(String... args) throws Exception {
-		User user = new User();
-		user.setNumeroCNI(12354545);
-		user.setUsername("Furel");
-		user.setCodePin("12ping");
-		userRepository.save(user);
-
-		ResponsableCoin responsableCoin = new ResponsableCoin();
-		responsableCoin.setUser(user);
-		responsableCoin.setPoste("DG");
-		responsableCoin.setCodeUser("User123");
-		responsableCoinRepository.save(responsableCoin);
-
-		CompteStructure compteStructure = new CompteStructure();
-		compteStructure.setNomStructure("Hysacam");
-		compteStructure.setResponsableCoin(responsableCoin);
-		compteStructureRepository.save(compteStructure);
-
-
 	}
 }
